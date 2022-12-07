@@ -1,3 +1,5 @@
+import {DBClient, DBHelper} from "./db";
+
 const express = require('express')
 const app = express()
 const port = 3000
@@ -37,7 +39,6 @@ const styles = `
         }
     </style>
 `
-
 app.get('/', (req, res) => {
     let html = `
         ${styles}
@@ -82,6 +83,11 @@ app.post('/getCustomers', (req, res) => {
             name: 'Petr Petrov'
         }
     ])
+})
+
+app.get('/dbClient', (req, res) => {
+    const dbClient: DBClient = DBHelper.getDatabaseClient();
+    res.send(dbClient.status());
 })
 
 app.listen(port, () => {
